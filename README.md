@@ -335,10 +335,7 @@ Email: daniel@teamtask.dev
 Password: Member1234
 ```
 
-```text
-Email: yuki@teamtask.dev
-Password: Member1234
-```
+should be added more ...through login form
 
 ---
 
