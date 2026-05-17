@@ -254,12 +254,6 @@ JWT_EXPIRES_IN=1d
 CORS_ORIGIN=http://localhost:5173
 ```
 
-## Frontend `.env`
-
-```env
-VITE_API_URL=https://your-api-domain.com/api
-```
-
 ---
 
 # Local Development
@@ -319,7 +313,7 @@ npm run preview
 
 # Live Test 
  ```
-  https://team-manage-task-ub74.vercel.app/
+  VITE_API_URL= https://team-manage-task-ub74.vercel.app/
 ```
 
 ## Admin
