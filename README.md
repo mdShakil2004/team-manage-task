@@ -1,194 +1,350 @@
-# Team Task Manager (Full Stack)
+# Team Task Manager — Full Stack Project
 
-Full-stack Team Task Manager with a TanStack Start frontend and a production-ready backend API built with **Node.js + TypeScript + Express + Prisma + PostgreSQL**.
+A modern full-stack team collaboration and task management platform built with a scalable backend architecture and a responsive SaaS-style frontend.
 
+The application enables teams to create projects, assign tasks, manage members, track progress, and monitor overdue work through a clean dashboard interface with secure role-based access control.
 
-<img width="1871" height="3396" alt="image" src="https://github.com/user-attachments/assets/77b6716b-84d3-4044-9a39-7c3e999b7053" />
+---
 
-<img width="1857" height="863" alt="image" src="https://github.com/user-attachments/assets/876b3031-1738-4170-a867-ffbe6130c9f6" />
+# Preview
 
+## Dashboard
 
-## Tech Stack
-- Node.js + TypeScript
-- Express
-- PostgreSQL + Prisma ORM
-- JWT authentication
-- bcrypt password hashing
-- Zod validation
+<img width="1871" height="3396" alt="Dashboard Preview" src="https://github.com/user-attachments/assets/77b6716b-84d3-4044-9a39-7c3e999b7053" />
 
+## Project Workspace
 
+<img width="1857" height="863" alt="Project Preview" src="https://github.com/user-attachments/assets/876b3031-1738-4170-a867-ffbe6130c9f6" />
 
-## Backend Folder Structure
-`/backend`
-- `src/routes`
-- `src/controllers`
-- `src/services`
-- `src/middleware`
-- `src/validators`
-- `src/lib`
-- `prisma/schema.prisma`
-- `prisma/seed.ts`
+---
 
-## Features
-- Auth: signup, login, logout, me
-- RBAC: ADMIN/MEMBER controls
-- Projects CRUD + member management
-- Tasks CRUD + assignment + status updates
-- Dashboard summary/activity/overdue
-- Activity listing
-- Pagination, filters, sorting
-- Consistent error format
-- Health endpoint: `GET /health`
+# Tech Stack
 
-## Frontend (TanStack Start)
-The frontend lives at the repo root and connects to the backend API via `VITE_API_URL` (defaults to `/api`).
+## Frontend
 
-### Frontend Dev
-```bash
-# from root
-npm install
-npm run dev
-```
-The dev server proxies `/api` to `http://localhost:4000` (see `vite.config.ts`).
+* React
+* TanStack Start
+* TypeScript
+* React Query
+* Tailwind CSS
+* Shadcn UI
 
-### Frontend Build
-```bash
-# from root
-npm run build
-npm run preview
-```
+## Backend
 
-### Frontend Environment
-Create a `.env` file (see `.env.example`) if the API is hosted elsewhere:
-```env
-VITE_API_URL=https://your-api.example.com/api
-```
+* Node.js
+* Express
+* TypeScript
+* PostgreSQL
+* Prisma ORM
+* JWT Authentication
+* Zod Validation
+* bcrypt Password Hashing
 
-## API Endpoints
-### Auth
-- `POST /api/auth/signup`
-- `POST /api/auth/login`
-- `POST /api/auth/logout`
-- `GET /api/auth/me`
+## Deployment
 
-### Users / Team
-- `GET /api/users`
-- `GET /api/users/:id`
-- `PATCH /api/users/:id/role`
-- `POST /api/users/invite`
+* Railway (Backend + PostgreSQL)
+* Vercel / Static Hosting (Frontend)
 
-### Projects
-- `GET /api/projects`
-- `POST /api/projects`
-- `GET /api/projects/:id`
-- `PATCH /api/projects/:id`
-- `DELETE /api/projects/:id`
-- `POST /api/projects/:id/members`
-- `DELETE /api/projects/:id/members/:userId`
+---
 
-### Tasks
-- `GET /api/tasks`
-- `POST /api/tasks`
-- `GET /api/tasks/:id`
-- `PATCH /api/tasks/:id`
-- `DELETE /api/tasks/:id`
-- `PATCH /api/tasks/:id/status`
-- `PATCH /api/tasks/:id/assign`
+# Core Features
 
-### Dashboard
-- `GET /api/dashboard/summary`
-- `GET /api/dashboard/activity`
-- `GET /api/dashboard/overdue`
+## Authentication & Security
 
-### Activity
-- `GET /api/activity`
+* User Signup & Login
+* JWT-based Authentication
+* Protected Routes
+* Password Hashing using bcrypt
+* Role-Based Access Control (RBAC)
 
-## Filters / Sorting
-### Projects
-- `search` (name)
-- `status`
-- `ownerId`
-- `sortBy=dueDate`
-- `sortOrder=asc|desc`
-- `page`, `limit`
+## Project Management
 
-### Tasks
-- `search` (title)
-- `status`
-- `priority`
-- `assigneeId`
-- `projectId`
-- `overdue=true|false`
-- `sortBy=dueDate|priority|createdAt`
-- `sortOrder=asc|desc`
-- `page`, `limit`
+* Create / Update / Delete Projects
+* Add & Remove Team Members
+* Project Status Tracking
+* Progress Calculation
+* Activity Timeline
 
-## Setup
-From repo root:
+## Task Management
+
+* Create & Assign Tasks
+* Priority Levels
+* Status Workflow
+* Due Date Tracking
+* Overdue Detection
+* Filtering & Sorting
+* Pagination Support
+
+## Dashboard & Analytics
+
+* Total Projects
+* Total Tasks
+* Completed Tasks
+* Overdue Tasks
+* Recent Activity Feed
+* Task Status Visualization
+* Assigned Task Tracking
+
+## Team Management
+
+* Invite Members
+* Update User Roles
+* Workspace Member Listing
+* Admin / Member Permissions
+
+---
+
+# Application Architecture
+
+## Backend Structure
 
 ```bash
-npm install
-cd backend
-npm install
-cp .env.example .env
+/backend
+├── src
+│   ├── controllers
+│   ├── services
+│   ├── routes
+│   ├── middleware
+│   ├── validators
+│   ├── lib
+│   └── types
+├── prisma
+│   ├── schema.prisma
+│   └── seed.ts
 ```
 
-Optional frontend env file:
-```bash
-cp .env.example .env
+### Architecture Pattern
+
+The backend follows a clean layered architecture:
+
+```text
+Routes → Controllers → Services → Prisma ORM → PostgreSQL
 ```
 
-Set `.env` values:
+This separation improves:
+
+* scalability
+* maintainability
+* testing
+* business logic isolation
+
+---
+
+# Database Design
+
+The application uses PostgreSQL with Prisma ORM and relational models for:
+
+* Users
+* Projects
+* Project Members
+* Tasks
+* Activity Logs
+
+Key relationships include:
+
+* One-to-many project ownership
+* Many-to-many project membership
+* Task assignment relationships
+* Activity audit tracking
+
+---
+
+# REST API Endpoints
+
+## Authentication
+
+* `POST /api/auth/signup`
+* `POST /api/auth/login`
+* `POST /api/auth/logout`
+* `GET /api/auth/me`
+
+## Users & Team
+
+* `GET /api/users`
+* `GET /api/users/:id`
+* `PATCH /api/users/:id/role`
+* `POST /api/users/invite`
+
+## Projects
+
+* `GET /api/projects`
+* `POST /api/projects`
+* `GET /api/projects/:id`
+* `PATCH /api/projects/:id`
+* `DELETE /api/projects/:id`
+* `POST /api/projects/:id/members`
+* `DELETE /api/projects/:id/members/:userId`
+
+## Tasks
+
+* `GET /api/tasks`
+* `POST /api/tasks`
+* `GET /api/tasks/:id`
+* `PATCH /api/tasks/:id`
+* `DELETE /api/tasks/:id`
+* `PATCH /api/tasks/:id/status`
+* `PATCH /api/tasks/:id/assign`
+
+## Dashboard
+
+* `GET /api/dashboard/summary`
+* `GET /api/dashboard/activity`
+* `GET /api/dashboard/overdue`
+
+## Activity
+
+* `GET /api/activity`
+
+---
+
+# Filtering & Query Support
+
+## Projects
+
+* Search by name
+* Filter by status
+* Filter by owner
+* Sort by due date
+* Pagination
+
+## Tasks
+
+* Search by title
+* Filter by status
+* Filter by priority
+* Filter by assignee
+* Filter by project
+* Overdue filtering
+* Sorting & pagination
+
+---
+
+# Frontend Architecture
+
+The frontend uses:
+
+* TanStack Router for routing
+* React Query for server state management
+* Context API for authentication state
+* Reusable UI components
+* Responsive dashboard layouts
+
+## Main Screens
+
+* Authentication
+* Dashboard
+* Projects
+* Tasks
+* Team Management
+* Activity Feed
+* Settings
+
+---
+
+# Environment Configuration
+
+## Backend `.env`
 
 ```env
 NODE_ENV=development
 PORT=4000
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/team_task_manager?schema=public
-JWT_SECRET=change_me_to_a_long_random_secret
+DATABASE_URL=your_postgresql_database_url
+JWT_SECRET=your_secret_key
 JWT_EXPIRES_IN=1d
 CORS_ORIGIN=http://localhost:5173
 ```
 
-## Database
+## Frontend `.env`
+
+```env
+VITE_API_URL=https://your-api-domain.com/api
+```
+
+---
+
+# Local Development
+
+## Install Dependencies
+
 ```bash
+npm install
+
 cd backend
+npm install
+```
+
+## Database Setup
+
+```bash
 npm run prisma:generate
 npm run prisma:migrate
 npm run prisma:seed
 ```
 
-## Run
+## Start Development Servers
+
+### Backend
+
 ```bash
-# from root
-npm run backend:dev
-
-# in another terminal (frontend)
-npm run dev
-
-# or from backend
 npm run dev
 ```
 
-## Build
+### Frontend
+
 ```bash
-# from root
-npm run backend:build
+npm run dev
+```
 
-npm run build
+---
 
-# from backend
+# Production Build
+
+## Backend
+
+```bash
 npm run build
 npm run start
 ```
 
-## Demo Credentials (seed)
-- Admin: `admin@teamtask.dev` / `Admin1234`
-- Member: `priya@teamtask.dev` / `Member1234`
-- Member: `daniel@teamtask.dev` / `Member1234`
-- Member: `yuki@teamtask.dev` / `Member1234`
-- Member: `sofia@teamtask.dev` / `Member1234`
+## Frontend
 
-## Error Response Format
+```bash
+npm run build
+npm run preview
+```
+
+---
+
+# Demo Credentials
+
+## Admin
+
+```text
+Email: admin@teamtask.dev
+Password: Admin1234
+```
+
+## Members
+
+```text
+Email: priya@teamtask.dev
+Password: Member1234
+```
+
+```text
+Email: daniel@teamtask.dev
+Password: Member1234
+```
+
+```text
+Email: yuki@teamtask.dev
+Password: Member1234
+```
+
+---
+
+# Standard API Error Response
+
 ```json
 {
   "success": false,
@@ -198,17 +354,52 @@ npm run start
 }
 ```
 
-## Railway Deployment
-1. Create PostgreSQL service in Railway.
-2. Create a new service from this repo.
-3. Set service root directory to `backend`.
-4. Set env vars: `DATABASE_URL`, `JWT_SECRET`, `JWT_EXPIRES_IN`, `CORS_ORIGIN`, `NODE_ENV`, `PORT`.
-5. Build command: `npm install && npm run build`.
-6. Start command: `npm run start`.
-7. Run migrations on deploy: `npm run prisma:deploy` (pre-deploy hook or release command).
-8. Verify using `GET /health`.
+---
+
+# Deployment
+
+## Backend Deployment (Railway)
+
+1. Create PostgreSQL service
+2. Connect GitHub repository
+3. Set backend root directory
+4. Configure environment variables
+5. Run Prisma migrations
+6. Deploy production build
 
 ## Frontend Deployment
-1. Deploy the frontend (root) to your hosting provider (Vercel/Netlify/Cloudflare Pages).
-2. Set `VITE_API_URL` to the backend base URL (e.g. `https://api.example.com/api`).
-3. Ensure backend `CORS_ORIGIN` includes the frontend domain.
+
+The frontend can be deployed to:
+
+* Vercel
+* Netlify
+* Cloudflare Pages
+
+Configure:
+
+```env
+VITE_API_URL=https://your-backend-domain.com/api
+```
+
+---
+
+# Highlights
+
+* Full-stack architecture
+* Secure JWT authentication
+* Role-based authorization
+* Relational database modeling
+* Production-ready API structure
+* Responsive modern UI
+* Clean component architecture
+* Reusable service layer
+* Validation & centralized error handling
+* Railway deployment ready
+
+---
+
+# Author
+
+Md Shakil
+B.Tech — Computer Science Engineering
+VGU Jaipur
