@@ -1,0 +1,12 @@
+import { Router } from "express";
+import { DashboardController } from "../controllers/dashboard.controller.js";
+import { authenticate } from "../middleware/auth.js";
+
+const router = Router();
+
+router.use(authenticate);
+router.get("/summary", DashboardController.summary);
+router.get("/activity", DashboardController.activity);
+router.get("/overdue", DashboardController.overdue);
+
+export default router;
